@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { brand, navItems } from '../data/content'
-import { useContact } from './ContactContext'
 import { Button } from './ui/Button'
 
 export function Header() {
-  const { openModal } = useContact()
   const [menuOpen, setMenuOpen] = useState(false)
 
   function goTo(id: string) {
@@ -34,7 +32,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button className="hidden sm:inline-flex" onClick={() => openModal()}>
+          <Button className="hidden sm:inline-flex" onClick={() => goTo('configurator')}>
             Рассчитать промо
           </Button>
           <button
@@ -61,7 +59,7 @@ export function Header() {
                 {item.label}
               </button>
             ))}
-            <Button className="mt-1 w-full sm:hidden" onClick={() => openModal()}>
+            <Button className="mt-1 w-full sm:hidden" onClick={() => goTo('configurator')}>
               Рассчитать промо
             </Button>
           </div>

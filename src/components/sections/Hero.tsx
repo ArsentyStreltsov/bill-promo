@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import { brand, hero } from '../../data/content'
-import { useContact } from '../ContactContext'
 import { Button } from '../ui/Button'
 
 export function Hero() {
-  const { openModal } = useContact()
   const [screen, setScreen] = useState(0)
 
   return (
@@ -18,7 +16,13 @@ export function Hero() {
           <p className="mt-4 text-base text-muted md:text-lg">{hero.subtitle}</p>
           <p className="mt-3 text-sm text-muted">{hero.note}</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button onClick={() => openModal()}>{hero.primaryCta}</Button>
+            <Button
+              onClick={() =>
+                document.getElementById('configurator')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
+              {hero.primaryCta}
+            </Button>
             <Button
               variant="secondary"
               onClick={() =>

@@ -1,10 +1,7 @@
 import { brand, footer, navItems } from '../data/content'
-import { useContact } from './ContactContext'
 import { Button } from './ui/Button'
 
 export function Footer() {
-  const { openModal } = useContact()
-
   return (
     <footer className="border-t border-line bg-surface px-4 py-10 md:px-8">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-start md:justify-between">
@@ -19,7 +16,13 @@ export function Footer() {
             </a>
           ))}
         </div>
-        <Button onClick={() => openModal()}>Рассчитать промо</Button>
+        <Button
+          onClick={() =>
+            document.getElementById('configurator')?.scrollIntoView({ behavior: 'smooth' })
+          }
+        >
+          Рассчитать промо
+        </Button>
       </div>
     </footer>
   )
