@@ -402,20 +402,22 @@ function Demo({ id }: { id: string }) {
   return null
 }
 
-function MechanicCard({ m }: { m: Mechanic }) {
-  const [expanded, setExpanded] = useState(false)
-
+function MechanicCard({
+  m,
+  expanded,
+  onToggle,
+}: {
+  m: Mechanic
+  expanded: boolean
+  onToggle: () => void
+}) {
   return (
     <div
       className={`rounded-md border bg-white transition-all ${
         expanded ? 'border-accent sm:col-span-2 lg:col-span-2' : 'border-line'
       }`}
     >
-      <button
-        type="button"
-        onClick={() => setExpanded((v) => !v)}
-        className="w-full p-4 text-left"
-      >
+      <button type="button" onClick={onToggle} className="w-full p-4 text-left">
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-medium">{m.title}</h3>
           {m.playable ? (
@@ -452,11 +454,22 @@ function MechanicCard({ m }: { m: Mechanic }) {
 }
 
 export function GameMechanics() {
+  const [openId, setOpenId] = useState<string | null>(mechanics[0]?.id ?? null)
+
+  function toggle(id: string) {
+    setOpenId((prev) => (prev === id ? null : id))
+  }
+
   return (
     <Section id={gameMechanicsSection.id} title={gameMechanicsSection.title}>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {mechanics.map((m) => (
-          <MechanicCard key={m.id} m={m} />
+          <MechanicCard
+            key={m.id}
+            m={m}
+            expanded={openId === m.id}
+            onToggle={() => toggle(m.id)}
+          />
         ))}
       </div>
       <p className="mt-6 text-sm text-muted">{gameMechanicsSection.note}</p>
